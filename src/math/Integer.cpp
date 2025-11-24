@@ -107,6 +107,12 @@ namespace im {
         return lhs1 %= rhs;
     }
 
+    Integer Integer::operator-() {
+        Integer neg(*this);
+        mp_int_neg(neg.value, neg.value);
+        return neg;
+    }
+
     Integer::~Integer() {
         mp_int_free(value);
     }

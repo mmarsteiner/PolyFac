@@ -72,6 +72,9 @@ bool testInteger() {
     im::Integer k = i % 4;
     ASSERT_TRUE(k.equals(2));
 
+    im::Integer l = -k;
+    ASSERT_TRUE(l.equals(-2));
+
     return true;
 }
 

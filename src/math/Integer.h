@@ -72,6 +72,9 @@ namespace im {
         Integer& operator%=(const Integer& rhs);
         friend Integer operator%(const Integer& lhs, const Integer& rhs);
 
+        /** Unary negation operator */
+        Integer operator-();
+
         /**
          * Frees the Integer.
          */
