@@ -1,5 +1,9 @@
-#include <cstdio>
+/**
+ * @file PolynomialTest.cpp
+ * Implementation file for testing the Polynomial class.
+ * @author Matt Marsteiner
+ */
 
-void polynomialTest() {
-    printf("Running PolynomialTest");
+bool testPolynomial() {
+    return true;
 }
