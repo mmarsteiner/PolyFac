@@ -11,9 +11,13 @@
 namespace pf {
     template<typename C>
     class Term {
+        static_assert(std::is_base_of_v<CoefficientDomain<C>, C>);
+        static_assert(std::is_constructible_v<C, int>);
         C coefficient;
         unsigned int exponent;
     public:
+        Term (int val) : Term(C(val), 0) {}
+
         Term(const C& coeff, unsigned int const exp) : coefficient(coeff), exponent(exp) {
         }
 
@@ -40,6 +44,28 @@ namespace pf {
 
         unsigned int getExponent() const {
             return exponent;
+        }
+
+        bool equals(const Term& other) const {
+            return exponent == other.exponent && coefficient.equals(other.coefficient);
+        }
+
+        Term operator-() const {
+            Term tmp(*this);
+            tmp.coefficient *= -1;
+            return tmp;
+        }
+
+        Term& operator*=(const Term& rhs) {
+            coefficient *= rhs.coefficient;
+            exponent += rhs.exponent;
+            return *this;
+        }
+
+        friend Term operator*(const Term& lhs, const Term& rhs) {
+            Term tmp(lhs);
+            tmp *= rhs;
+            return tmp;
         }
     };
 } // pf
