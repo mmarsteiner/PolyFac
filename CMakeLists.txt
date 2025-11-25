@@ -8,6 +8,8 @@ set(HEADERS
         src/polynomial/Polynomial.h
         src/math/Integer.h
         src/math/Rational.h
+        src/math/CoefficientDomain.h
+        src/math/CoefficientField.h
         lib/imath/imath.h
         lib/imath/imrat.h
 )

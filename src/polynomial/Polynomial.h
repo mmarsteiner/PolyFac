@@ -7,7 +7,8 @@
 #ifndef POLYNOMIAL_H
 #define POLYNOMIAL_H
 
-namespace poly_fac {
+namespace pf {
+    template <typename C>
     class Polynomial {
 
     };

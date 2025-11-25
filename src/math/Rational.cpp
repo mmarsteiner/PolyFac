@@ -49,7 +49,7 @@ namespace im {
     }
 
     Rational Rational::operator++(int) {
-        Rational tmp = *this;
+        Rational tmp(*this);
         operator++();
         return tmp;
     }
@@ -91,11 +91,6 @@ namespace im {
 
     Rational::~Rational() {
         mp_rat_free(value);
-    }
-
-    Rational operator+(const Rational& lhs, const Rational& rhs) {
-        Rational lhs1(lhs);
-        return lhs1 += rhs;
     }
 
     Rational operator-(const Rational& lhs, const Rational& rhs) {

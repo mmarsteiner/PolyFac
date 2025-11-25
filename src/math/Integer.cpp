@@ -38,11 +38,6 @@ namespace im {
         return *this;
     }
 
-    Integer operator+(const Integer &lhs, const Integer &rhs) {
-        Integer lhs1(lhs);
-        return lhs1 += rhs;
-    }
-
     Integer& Integer::operator++() {
         mp_int_add_value(value, 1, value);
         return *this;
@@ -57,11 +52,6 @@ namespace im {
     Integer& Integer::operator-=(const Integer &rhs) {
         mp_int_sub(value, rhs.value, value);
         return *this;
-    }
-
-    Integer operator-(const Integer &lhs, const Integer &rhs) {
-        Integer lhs1(lhs);
-        return lhs1 -= rhs;
     }
 
     Integer& Integer::operator--() {
@@ -97,20 +87,15 @@ namespace im {
         return lhs1 *= rhs;
     }
 
-    Integer operator/(const Integer &lhs, const Integer &rhs) {
-        Integer lhs1(lhs);
-        return lhs1 /= rhs;
-    }
-
     Integer operator%(const Integer &lhs, const Integer &rhs) {
         Integer lhs1(lhs);
         return lhs1 %= rhs;
     }
 
-    Integer Integer::operator-() {
-        Integer neg(*this);
-        mp_int_neg(neg.value, neg.value);
-        return neg;
+    Integer Integer::operator-() const {
+        Integer tmp(*this);
+        mp_int_neg(tmp.value, tmp.value);
+        return tmp;
     }
 
     Integer::~Integer() {

@@ -6,10 +6,12 @@
 
 #ifndef RATIONAL_H
 #define RATIONAL_H
+
+#include "CoefficientField.h"
 #include "../../lib/imath/imrat.h"
 
 namespace im {
-    class Rational {
+    class Rational : public pf::CoefficientField<Rational> {
         mp_rat value;
 
     public:
@@ -49,7 +51,7 @@ namespace im {
          * @param other Other Rational to compare to.
          * @return true if they are equal, or false otherwise.
          */
-        bool equals(const Rational& other) const;
+        bool equals(const Rational& other) const override;
 
         /**
          * Determines if this Rational is an integer.
@@ -59,43 +61,30 @@ namespace im {
 
         /** Addition operators */
 
-        Rational &operator+=(const Rational& rhs);
-
-        friend Rational operator+(const Rational& lhs, const Rational& rhs);
-
-        Rational &operator++();
-
-        Rational operator++(int);
+        Rational &operator+=(const Rational& rhs) override;
+        Rational &operator++() override;
+        Rational operator++(int) override;
 
         /** Subtraction operators */
 
-        Rational &operator-=(const Rational& rhs);
-
-        friend Rational operator-(const Rational& lhs, const Rational& rhs);
-
-        Rational &operator--();
-
-        Rational operator--(int);
+        Rational &operator-=(const Rational& rhs) override;
+        Rational &operator--() override;
+        Rational operator--(int) override;
 
         /** Multiplication operators */
 
-        Rational &operator*=(const Rational& rhs);
-
+        Rational &operator*=(const Rational& rhs) override;
         friend Rational operator*(const Rational& lhs, const Rational& rhs);
 
         /** Division operators */
 
-        Rational &operator/=(const Rational& rhs);
-
-        friend Rational operator/(const Rational& lhs, const Rational& rhs);
-
-        Rational inverse() const;
+        Rational &operator/=(const Rational& rhs) override;
+        Rational inverse() const override;
 
         /** Unary negation */
 
-        Rational operator-() const;
-
-        ~Rational();
+        Rational operator-() const override;
+        ~Rational() override;
     };
 } // im
 
