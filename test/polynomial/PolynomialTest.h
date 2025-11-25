@@ -3,8 +3,14 @@
 
 /**
  * Tests the Polynomial component.
- * @return True if successful, or false otherwise.
+ * @return true if successful, or false otherwise.
  */
 bool testPolynomial();
+
+/**
+ * Tests polynomial division
+ * @return true if successful, or false otherwise.
+ */
+bool testPolynomialDiv();
 
 #endif //POLYNOMIALTEST_H

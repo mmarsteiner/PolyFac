@@ -6,8 +6,8 @@
 typedef bool (*TestFunction)();
 
 int main() {
-    static TestFunction tests[] = { testInteger, testRational, testPolynomial};
-    static char const *testNames[] = { "testInteger", "testRational", "testPolynomial" };
+    static TestFunction tests[] = { testInteger, testRational, testPolynomial, testPolynomialDiv };
+    static char const *testNames[] = { "testInteger", "testRational", "testPolynomial", "testPolynomialDiv" };
     for (int i = 0; i < sizeof(tests) / sizeof(tests[0]); ++i) {
         printf("Running %s: ", testNames[i]);
         bool success = tests[i]();

@@ -8,6 +8,7 @@
 
 #include "../Assertions.h"
 #include "../../src/math/Integer.h"
+#include "../../src/math/Rational.h"
 #include "../../src/polynomial/Polynomial.h"
 
 bool testPolynomial() {
@@ -72,5 +73,22 @@ bool testPolynomial() {
     ASSERT_TRUE(q.getDegree() == 1);
     ASSERT_TRUE(q.equals(pf::Term<im::Integer>(1, 1)));
 
+    return true;
+}
+
+bool testPolynomialDiv() {
+    // num = X^2 + 3X + 2
+    pf::Polynomial<im::Rational> num = 2;
+    num += pf::Term<im::Rational>(1, 2);
+    num += pf::Term<im::Rational>(3, 1);
+    // den = X + 1
+    pf::Polynomial<im::Rational> den = 1;
+    den += pf::Term<im::Rational>(1, 1);
+
+    pf::Polynomial<im::Rational> rem;
+    pf::Polynomial<im::Rational> quo = pf::Polynomial<im::Rational>::divide(num, den, &rem);
+    ASSERT_TRUE(rem.equals(0));
+    pf::Polynomial<im::Rational> cmp = pf::Polynomial<im::Rational>(pf::Term<im::Rational>(1, 1)) + 2;
+    ASSERT_TRUE(quo.equals(cmp));
     return true;
 }

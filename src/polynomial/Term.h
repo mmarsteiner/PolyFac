@@ -8,6 +8,8 @@
 #define TERM_H
 #include <assert.h>
 
+#include "../math/CoefficientField.h"
+
 namespace pf {
     template<typename C>
     class Term {
@@ -66,6 +68,19 @@ namespace pf {
             Term tmp(lhs);
             tmp *= rhs;
             return tmp;
+        }
+
+        Term& operator/=(const Term& rhs) {
+            assert(!rhs.coefficient.equals(0));
+            coefficient /= rhs.coefficient;
+            exponent -= rhs.exponent;
+            return *this;
+        }
+
+        friend Term operator/(const Term& lhs, const Term& rhs) {
+            static_assert(std::is_base_of_v<CoefficientField<C>, C>);
+            Term tmp(lhs);
+            return tmp /= rhs;
         }
     };
 } // pf

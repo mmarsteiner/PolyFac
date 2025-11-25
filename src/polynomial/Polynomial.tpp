@@ -67,12 +67,12 @@ namespace pf {
         }
         if (*curr != NULL && (*curr)->t.getExponent() == t.getExponent()) {
             (*curr)->t += t;
+            removeZeroTerms();
         } else {
             PolynomialNode *newNode = new PolynomialNode(t, *curr);
             *curr = newNode;
             ++numTerms;
         }
-        removeZeroTerms();
     }
 
     template<typename C>
@@ -111,11 +111,22 @@ namespace pf {
     }
 
     template<typename C>
+    Term<C> Polynomial<C>::getLeadingTerm() const {
+        if (numTerms == 0)
+            return 0;
+        return head->t;
+    }
+
+    template<typename C>
     Polynomial<C>::Polynomial() : Polynomial(0) {
     }
 
     template<typename C>
-    Polynomial<C>::Polynomial(int const val) : Polynomial(Term(C(val), 0)) {
+    Polynomial<C>::Polynomial(int val) : Polynomial(C(val)) {
+    }
+
+    template<typename C>
+    Polynomial<C>::Polynomial(const C& c) : Polynomial(Term(c, 0)){
     }
 
     template<typename C>
@@ -174,6 +185,24 @@ namespace pf {
     Polynomial<C> &Polynomial<C>::operator*=(const Polynomial& rhs) {
         Polynomial res = *this * rhs;
         return *this = res;
+    }
+
+    template<typename C>
+    Polynomial<C> Polynomial<C>::divide(const Polynomial& lhs,
+                                        const Polynomial& rhs, Polynomial *remOut) {
+
+        static_assert(std::is_base_of_v<CoefficientField<C>, C>);
+        assert(!rhs.equals(0));
+        Polynomial quotient = 0;
+        Polynomial remainder = lhs;
+        while (!remainder.equals(0) && remainder.getDegree() >= rhs.getDegree()) {
+            Polynomial tmp = remainder.getLeadingCoefficient() / rhs.getLeadingCoefficient();
+            quotient += tmp;
+            remainder -= tmp * rhs;
+        }
+        if (remOut != nullptr)
+            *remOut = remainder;
+        return quotient;
     }
 
     template<typename C>

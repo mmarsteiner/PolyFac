@@ -70,15 +70,27 @@ namespace pf {
         bool equals(const Polynomial& other) const;
 
         /**
+         * Gets the leading term of the polynomial.
+         * @return the leading term of the polynomial.
+         */
+        Term<C> getLeadingTerm() const;
+
+        /**
          * Creates a new Polynomial which defaults to a value of zero.
          */
         Polynomial();
 
         /**
-         * Creates constant Polynomial with an integer value.
-         * @param val Value to set the new Polynomial to.
+         * Creates a constant polynomial with a given value
+         * @param val Value of the constant term.
          */
         Polynomial(int val);
+
+        /**
+         * Creates a constant polynomial with a given value
+         * @param c Value of the coefficient of the zero degree term.
+         */
+        Polynomial(const C& c);
 
         /**
          * Creates a new Polynomial with a single term.
@@ -123,6 +135,18 @@ namespace pf {
             }
             return res;
         }
+
+        /**
+         * Performs Polynomial division. The coefficients must come from a field
+         * so that division can be performed.
+         * @param lhs Numerator of the division.
+         * @param rhs Denominator of the division.
+         * @param remOut Output location for the remainder. nullptr can be
+         *                  given for this argument if the remainder may be
+         *                  discarded.
+         * @return Quotient of the division operation.
+         */
+        static Polynomial divide(const Polynomial& lhs, const Polynomial& rhs, Polynomial *remOut);
 
         /**
          * Frees the Polynomial's resources.
