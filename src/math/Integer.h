@@ -38,7 +38,7 @@ namespace im {
          * @param other Integer on the RHS of the assignment expression.
          * @return Reference to the Integer being assigned into.
          */
-        Integer &operator=(const Integer &other);
+        Integer& operator=(const Integer &other);
 
         /**
          * Determines if this Integer is equal to another Integer, based on their values.

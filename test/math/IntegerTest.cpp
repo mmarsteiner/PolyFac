@@ -8,15 +8,9 @@
 
 #include <cstdio>
 
+#include "../Assertions.h"
 #include "../../src/math/Integer.h"
 
-#define ASSERT_TRUE(expr) \
-do {\
-    if (!expr) {\
-        printf("Failed assertion %s in file %s on line %d\n", #expr, __FILE__, __LINE__);\
-        return false;\
-    }\
-} while (0)
 
 /**
  * Tests the Integer class.

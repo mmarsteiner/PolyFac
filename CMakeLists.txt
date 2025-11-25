@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(HEADERS
         src/polynomial/Polynomial.h
         src/math/Integer.h
+        src/math/Rational.h
         lib/imath/imath.h
         lib/imath/imrat.h
 )
@@ -14,6 +15,7 @@ set(HEADERS
 set(SOURCES
         src/polynomial/Polynomial.cpp
         src/math/Integer.cpp
+        src/math/Rational.cpp
         lib/imath/imath.c
         lib/imath/imrat.c
 )
@@ -21,11 +23,14 @@ set(SOURCES
 set(TEST_HEADERS
         test/polynomial/PolynomialTest.h
         test/math/IntegerTest.h
+        test/math/RationalTest.h
+        test/Assertions.h
 )
 
 set(TEST_SOURCES
         test/polynomial/PolynomialTest.cpp
         test/math/IntegerTest.cpp
+        test/math/RationalTest.cpp
 )
 
 add_executable(PolyFac src/main.cpp ${HEADERS} ${SOURCES})
