@@ -15,7 +15,7 @@ set(HEADERS
 )
 
 set(SOURCES
-        src/polynomial/Polynomial.cpp
+        src/polynomial/Polynomial.tpp
         src/math/Integer.cpp
         src/math/Rational.cpp
         lib/imath/imath.c
