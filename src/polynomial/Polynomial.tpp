@@ -196,7 +196,7 @@ namespace pf {
         Polynomial quotient = 0;
         Polynomial remainder = lhs;
         while (!remainder.equals(0) && remainder.getDegree() >= rhs.getDegree()) {
-            Polynomial tmp = remainder.getLeadingCoefficient() / rhs.getLeadingCoefficient();
+            Polynomial tmp = remainder.getLeadingTerm() / rhs.getLeadingTerm();
             quotient += tmp;
             remainder -= tmp * rhs;
         }

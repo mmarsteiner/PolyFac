@@ -49,6 +49,8 @@ namespace pf {
         }
 
         bool equals(const Term& other) const {
+            if (coefficient.equals(0) && other.coefficient.equals(0))
+                return true;
             return exponent == other.exponent && coefficient.equals(other.coefficient);
         }
 

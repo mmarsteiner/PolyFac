@@ -67,6 +67,11 @@ bool testPolynomial() {
 
     ASSERT_TRUE(r.equals(p * q));
 
+    r -= pf::Polynomial(pf::Term<im::Integer>(1, 2)) + pf::Term<im::Integer>(1, 1);
+    ASSERT_TRUE(r.getNumTerms() == 2);
+    pf::Polynomial<im::Integer> s = pf::Polynomial(pf::Term<im::Integer>(2, 1)) + 2;
+    ASSERT_TRUE(r.equals(s));
+
     // q = X
     q -= 2;
     ASSERT_TRUE(q.getNumTerms() == 1);
