@@ -62,10 +62,10 @@ namespace pf {
         }
         PolynomialNode **curr = &head;
         // Insert new term in descending sorted order (highest degree at head)
-        while (*curr != NULL && (*curr)->t.getExponent() > t.getExponent()) {
+        while (*curr != nullptr && (*curr)->t.getExponent() > t.getExponent()) {
             curr = &(*curr)->next;
         }
-        if (*curr != NULL && (*curr)->t.getExponent() == t.getExponent()) {
+        if (*curr != nullptr && (*curr)->t.getExponent() == t.getExponent()) {
             (*curr)->t += t;
             removeZeroTerms();
         } else {
@@ -115,6 +115,20 @@ namespace pf {
         if (numTerms == 0)
             return 0;
         return head->t;
+    }
+
+    template<typename C>
+    Polynomial<C> Polynomial<C>::normalPart() const {
+        static_assert(std::is_base_of_v<CoefficientField<C>, C>);
+        Polynomial ret(*this);
+        C scale = ret.getLeadingCoefficient().inverse();
+        ret.mulTerm(Term<C>(scale, 0));
+        return ret;
+    }
+
+    template<typename C>
+    C Polynomial<C>::unitPart() const {
+        return getLeadingCoefficient();
     }
 
     template<typename C>
@@ -188,21 +202,11 @@ namespace pf {
     }
 
     template<typename C>
-    Polynomial<C> Polynomial<C>::divide(const Polynomial& lhs,
-                                        const Polynomial& rhs, Polynomial *remOut) {
-
+    Polynomial<C>& Polynomial<C>::operator/=(const C& rhs) {
         static_assert(std::is_base_of_v<CoefficientField<C>, C>);
-        assert(!rhs.equals(0));
-        Polynomial quotient = 0;
-        Polynomial remainder = lhs;
-        while (!remainder.equals(0) && remainder.getDegree() >= rhs.getDegree()) {
-            Polynomial tmp = remainder.getLeadingTerm() / rhs.getLeadingTerm();
-            quotient += tmp;
-            remainder -= tmp * rhs;
-        }
-        if (remOut != nullptr)
-            *remOut = remainder;
-        return quotient;
+        Term<C> tmp(rhs.inverse(), 0);
+        mulTerm(tmp);
+        return *this;
     }
 
     template<typename C>

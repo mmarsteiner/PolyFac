@@ -98,11 +98,6 @@ namespace im {
         return lhs1 -= rhs;
     }
 
-    Rational operator*(const Rational& lhs, const Rational& rhs) {
-        Rational lhs1(lhs);
-        return lhs1 *= rhs;
-    }
-
     Rational operator/(const Rational& lhs, const Rational& rhs) {
         Rational lhs1(lhs);
         return lhs1 /= rhs;

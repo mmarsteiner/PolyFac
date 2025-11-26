@@ -12,6 +12,7 @@ set(HEADERS
         src/math/CoefficientField.h
         lib/imath/imath.h
         lib/imath/imrat.h
+        src/polynomial/PolyUtils.h
 )
 
 set(SOURCES
@@ -20,6 +21,7 @@ set(SOURCES
         src/math/Rational.cpp
         lib/imath/imath.c
         lib/imath/imrat.c
+        src/polynomial/PolyUtils.tpp
 )
 
 set(TEST_HEADERS

@@ -76,6 +76,18 @@ namespace pf {
         Term<C> getLeadingTerm() const;
 
         /**
+         * Gets the normal part of the polynomial.
+         * @return The normal part of the polynomial.
+         */
+        Polynomial normalPart() const;
+
+        /**
+         * Gets the unit part of the polynomial.
+         * @return The unit part of the polynomial.
+         */
+        C unitPart() const;
+
+        /**
          * Creates a new Polynomial which defaults to a value of zero.
          */
         Polynomial();
@@ -136,22 +148,18 @@ namespace pf {
             return res;
         }
 
-        /**
-         * Performs Polynomial division. The coefficients must come from a field
-         * so that division can be performed.
-         * @param lhs Numerator of the division.
-         * @param rhs Denominator of the division.
-         * @param remOut Output location for the remainder. nullptr can be
-         *                  given for this argument if the remainder may be
-         *                  discarded.
-         * @return Quotient of the division operation.
-         */
-        static Polynomial divide(const Polynomial& lhs, const Polynomial& rhs, Polynomial *remOut);
+        Polynomial& operator/=(const C& rhs);
+
+        friend Polynomial operator/(const Polynomial& lhs, const C& rhs) {
+            Polynomial lhs1(lhs);
+            return lhs1 /= rhs;
+        }
 
         /**
          * Frees the Polynomial's resources.
          */
         ~Polynomial();
+        friend class PolyUtils;
     private:
         struct PolynomialNode {
             Term<C> t;

@@ -10,6 +10,7 @@
 #include "../../src/math/Integer.h"
 #include "../../src/math/Rational.h"
 #include "../../src/polynomial/Polynomial.h"
+#include "../../src/polynomial/PolyUtils.h"
 
 bool testPolynomial() {
     pf::Polynomial<im::Integer> p;
@@ -91,9 +92,33 @@ bool testPolynomialDiv() {
     den += pf::Term<im::Rational>(1, 1);
 
     pf::Polynomial<im::Rational> rem;
-    pf::Polynomial<im::Rational> quo = pf::Polynomial<im::Rational>::divide(num, den, &rem);
+    pf::Polynomial<im::Rational> quo = pf::PolyUtils::divide<im::Rational>(num, den, &rem);
     ASSERT_TRUE(rem.equals(0));
     pf::Polynomial<im::Rational> cmp = pf::Polynomial<im::Rational>(pf::Term<im::Rational>(1, 1)) + 2;
     ASSERT_TRUE(quo.equals(cmp));
+    return true;
+}
+
+bool testPolynomialEEA() {
+    // Example 2.14 from Geddes, Czapor, and Labahn
+    // a = 48x^3 - 84x^2 + 42x - 36
+    pf::Polynomial<im::Rational> a = -36;
+    a += pf::Term<im::Rational>(42, 1);
+    a += pf::Term<im::Rational>(-84, 2);
+    a += pf::Term<im::Rational>(48, 3);
+    // b = -4x^3 - 10x^2 + 44x - 30
+    pf::Polynomial<im::Rational> b = -30;
+    b += pf::Term<im::Rational>(44, 1);
+    b += pf::Term<im::Rational>(-10, 2);
+    b += pf::Term<im::Rational>(-4, 3);
+
+    pf::Polynomial<im::Rational> s;
+    pf::Polynomial<im::Rational> t;
+    pf::Polynomial<im::Rational> g = pf::PolyUtils::extEuclid<im::Rational>(a, b, &s, &t);
+
+    pf::Polynomial<im::Rational> expG = im::Rational(-3, 2);
+    expG += pf::Term<im::Rational>(1, 1);
+    ASSERT_TRUE(g.equals(expG));
+    ASSERT_TRUE(g.equals(s * a + t * b));
     return true;
 }

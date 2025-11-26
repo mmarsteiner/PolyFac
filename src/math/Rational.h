@@ -74,7 +74,6 @@ namespace im {
         /** Multiplication operators */
 
         Rational &operator*=(const Rational& rhs) override;
-        friend Rational operator*(const Rational& lhs, const Rational& rhs);
 
         /** Division operators */
 
