@@ -16,14 +16,12 @@ namespace pf {
             return tmp += rhs;
         }
         virtual C &operator++() = 0;
-        virtual C operator++(int) = 0;
         virtual C &operator-=(const C& rhs) = 0;
         friend C operator-(const C& lhs, const C& rhs) {
             C tmp(lhs);
             return tmp -= rhs;
         }
         virtual C &operator--() = 0;
-        virtual C operator--(int) = 0;;
         virtual C& operator*=(const C& rhs) = 0;
         friend C operator*(const C& lhs, const C& rhs) {
             C tmp(lhs);
@@ -34,7 +32,6 @@ namespace pf {
             C tmp(lhs);
             return tmp /= rhs;
         }
-        virtual C operator-() const = 0;
     };
 } // pf
 

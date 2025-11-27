@@ -98,6 +98,26 @@ namespace im {
         return tmp;
     }
 
+    Integer Integer::extGCD(const Integer& a, const Integer& b,
+                            Integer *s, Integer *t) {
+        Integer g;
+        bool discardS = false, discardT = false;
+        if (s == nullptr) {
+            s = new Integer;
+            discardS = true;
+        }
+        if (t == nullptr) {
+            t = new Integer;
+            discardT = true;
+        }
+        mp_int_egcd(a.value, b.value, g.value, s->value, t->value);
+        if (discardS)
+            delete s;
+        if (discardT)
+            delete t;
+        return g;
+    }
+
     Integer::~Integer() {
         mp_int_free(value);
     }

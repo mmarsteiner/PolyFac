@@ -13,6 +13,7 @@ set(HEADERS
         lib/imath/imath.h
         lib/imath/imrat.h
         src/polynomial/PolyUtils.h
+        src/math/FFElement.h
 )
 
 set(SOURCES
@@ -22,6 +23,7 @@ set(SOURCES
         lib/imath/imath.c
         lib/imath/imrat.c
         src/polynomial/PolyUtils.tpp
+        src/math/FFElement.cpp
 )
 
 set(TEST_HEADERS
@@ -35,6 +37,8 @@ set(TEST_SOURCES
         test/polynomial/PolynomialTest.cpp
         test/math/IntegerTest.cpp
         test/math/RationalTest.cpp
+        src/math/FFElement.cpp
+        src/math/FFElement.h
 )
 
 add_executable(PolyFac src/main.cpp ${HEADERS} ${SOURCES})

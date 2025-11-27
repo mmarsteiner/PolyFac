@@ -14,6 +14,7 @@ extern "C" {
 
 namespace im {
     class Integer : public pf::CoefficientDomain<Integer> {
+    protected:
         mp_int value;
 
     public:
@@ -71,6 +72,18 @@ namespace im {
 
         /** Unary negation operator */
         Integer operator-() const;
+
+        /**
+         * Performs the extended euclidean algorithm on a and b. Returns
+         * GCD(a,b) and outputs the values of s and t such that
+         * GCD(a,b) = sa + tb.
+         * @param a First integer for gcd
+         * @param b Second integer for gcd
+         * @param s Output for value of s
+         * @param t Output for value of t
+         * @return GCD(a,b)
+         */
+        static Integer extGCD(const Integer& a, const Integer& b, Integer *s, Integer *t);
 
         /**
          * Frees the Integer.
